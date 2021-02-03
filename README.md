@@ -3,9 +3,19 @@
 This project will create the following infrastructure in AWS:
 
 * VPC (3 public subnets, 3 private subnets, nat gateways)
-* EKS Cluster (t3a.medium)
+* EKS Cluster running a single t3a.medium spot instance
 * S3 Bucket to store Terraform State
 * DynamoDB table to hande Terraform state-locks
+
+Estimated Monthly cost: 
+
+```console
+$ terraform state pull | curl -s -X POST -H "Content-Type: application/json" -d @- https://cost.modules.tf/ | jq
+{
+  "hourly": 0.05,
+  "monthly": 34.56
+}
+```
 
 ## Bootstrapping the environment for the first time
 
@@ -29,7 +39,7 @@ terraform {
 }
 ```
 
-## How this works
+## How it works
 
 This code will allow you to deploy the same infrastructure to any AWS region.
 To achieve this we rely on terraform worskpaces.
@@ -61,4 +71,4 @@ $ terraform apply -var-file=us-west-2.tfvars
 ## Troubleshooting
 
 If you created resources in the default workspace by mistake and need to migrate state fom
-one workspace to another you can follow this excellent [guide](https://dev.to/igordcsouza_87/migrating-resources-from-the-default-workspace-to-a-new-one-3ojc)
+one workspace to another you can follow this excellent [guide](https://dev.to/igordcsouza_87/migrating-resources-from-the-default-workspace-to-a-new-one-3ojc).
