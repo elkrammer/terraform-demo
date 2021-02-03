@@ -1,4 +1,8 @@
-# This file defines the common configuration shared across environments
+#################################################################################
+# Locals                                                                       #
+#                                                                              #
+# This file is where we configure common settings for the project              #
+################################################################################
 
 locals {
   # AWS Profile Name
@@ -22,5 +26,13 @@ locals {
     "10.0.103.0/24"
   ]
   # --- End VPC Settings ---
+
+  # --- EKS Settings ---
+  eks_cluster_name    = "eks-prod-${local.region}"
+  eks_cluster_version = "1.18"
+  eks_instance_type   = "t3a.medium"
+  eks_spot_price      = "0.04"
+  eks_map_roles       = []
+  # --- End EKS Settings ---
 
 }
