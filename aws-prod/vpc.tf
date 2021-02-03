@@ -32,7 +32,7 @@ module "vpc" {
 
   tags = {
     Owner       = "Mauricio Bahamonde"
-    Environment = "production"
+    Environment = "production-poc"
   }
 
   vpc_tags = {

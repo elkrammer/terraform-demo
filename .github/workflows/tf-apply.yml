@@ -1,14 +1,14 @@
-name: "Terraform Plan"
+name: "Terraform Apply"
 
-# Trigger this workflow whenever a new pull request is received in the main branch
+# Trigger this workflow on new pushes to the master branch
 on:
-  pull_request:
+  push:
     branches:
       - main
 
 jobs:
-  terraform-plan:
-    name: "Terraform Plan"
+  terraform-apply:
+    name: "Terraform Apply"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -37,27 +37,10 @@ jobs:
         run: terraform init -input=false
 
       - name: "Set workplace to us-west-2"
-        run: |
-          # terraform workspace new us-west-2
-          terraform workspace select us-west-2
+        run: terraform workspace select us-west-2
 
       # The id value is used for reference in the comment step via "steps.plan.outputs.stdout"
       # Note: Color is disabled to prevent messy characters from appearing in the pull request comment
-      - name: "Run - Terraform Plan"
+      - name: "Run - Terraform Apply"
         id: plan
-        run: terraform plan -input=false -no-color -var-file=us-west-2.tfvars
-
-      # create a comment in the PR containing the the plan output
-      - name: "Run - Terraform Comment"
-        uses: actions/github-script@v3
-        env:
-          STDOUT: "```${{ steps.plan.outputs.stdout }}```"
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: process.env.STDOUT
-            })
+        run: terraform apply -input=false -no-color -var-file=us-west-2.tfvars -auto-approve
