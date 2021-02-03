@@ -14,16 +14,16 @@ provider "aws" {
 terraform {
   required_version = "~> 0.14"
 
-  # backend "s3" {
-  #   bucket               = "tfstate-production-poc"
-  #   dynamodb_table       = "terraform-state-production-locks"
-  #   encrypt              = true
-  #   key                  = "terraform.tfstate"
-  #   region               = "us-west-2"
-  #   workspace_key_prefix = "production"
-  #   profile              = "demo" # NOTE: update me if you change local.profile
-  #   # path pattern: s3://<bucket>/<workspace_key_prefix>/<workspace-name>/<key>
-  # }
+  backend "s3" {
+    bucket               = "tfstate-production-poc"
+    dynamodb_table       = "tfstate-production-locks"
+    encrypt              = true
+    key                  = "terraform.tfstate"
+    region               = "us-west-2"
+    workspace_key_prefix = "production"
+    profile              = "demo" # NOTE: update me if you change local.profile
+    # path pattern: s3://<bucket>/<workspace_key_prefix>/<workspace-name>/<key>
+  }
 }
 
 # terraform bucket to store state
