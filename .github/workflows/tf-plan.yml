@@ -38,7 +38,7 @@ jobs:
 
       - name: "Set workplace to us-west-2"
         run: |
-          terraform workspace new us-west-2
+          # terraform workspace new us-west-2
           terraform workspace select us-west-2
 
       # The id value is used for reference in the comment step via "steps.plan.outputs.stdout"
