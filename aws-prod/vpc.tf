@@ -20,14 +20,14 @@ module "vpc" {
 
   # Tags
   public_subnet_tags = {
-    "Name"                            : "production-public-subnet"
-    "kubernetes.io/role/elb"          : "1"
-    "kubernetes.io/cluster/eks"       : "shared"
+    "Name"                                     : "production-public-subnet"
+    "kubernetes.io/role/elb"                   : "1"
+    "kubernetes.io/cluster/eks-prod-us-west-2" : "shared"
   }
 
   private_subnet_tags = {
-    "Name"                            : "production-private-subnet"
-    "kubernetes.io/role/internal-elb" : "1"
+    "Name"                                     : "production-private-subnet"
+    "kubernetes.io/role/internal-elb"          : "1"
   }
 
   tags = {
