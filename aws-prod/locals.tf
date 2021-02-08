@@ -28,7 +28,7 @@ locals {
   # --- End VPC Settings ---
 
   # --- EKS Settings ---
-  eks_cluster_name    = "eks-prod-${local.region}"
+  eks_cluster_name    = "eks-prod1-${local.region}"
   eks_cluster_version = "1.18"
   eks_instance_type   = "t3a.medium"
   eks_spot_price      = "0.04"
